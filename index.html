@@ -20,7 +20,7 @@
         
         <input type="password" id="apiKeyInput" placeholder="Yahan apni Gemini API Key paste karein...">
         <br>
-        <input type="text" id="userInput" placeholder="Apna sawal likhein (e.g. Define machine)...">
+        <input type="text" id="userInput" placeholder="Apna sawal likhein...">
         <br><br>
         <button onclick="runAI()">Jawab Hasil Karein</button>
 
@@ -33,19 +33,19 @@
             let text = document.getElementById("userInput").value.trim();
             let resultDiv = document.getElementById("result");
 
-            if(apiKey === "") {
+            if(!apiKey) {
                 alert("Baraye meherbani pehle apni Gemini API Key paste karein!");
                 return;
             }
-            if(text === "") {
+            if(!text) {
                 alert("Baraye meherbani apna sawal likhein!");
                 return;
             }
 
-            resultDiv.innerHTML = "<b>AI soch raha hai... intezaار karein...</b>";
+            resultDiv.innerHTML = "<b>AI soch raha hai... intezaar karein...</b>";
 
             try {
-                let response = await fetch(https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}, {
+                let response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -57,12 +57,14 @@
 
                 if(data.error) {
                     resultDiv.innerHTML = "<b>Error:</b> " + data.error.message;
-                } else {
+                } else if(data.candidates && data.candidates[0].content) {
                     let aiReply = data.candidates[0].content.parts[0].text;
                     resultDiv.innerHTML = "<b>AI ka Jawab:</b><br><br>" + aiReply;
+                } else {
+                    resultDiv.innerHTML = "<b>Error:</b> Unexpected response format from API.";
                 }
             } catch (error) {
-                resultDiv.innerHTML = "Internet ya API connection mein masla aa gaya hai. Dobara koshish karein.";
+                resultDiv.innerHTML = "<b>Connection Error:</b> Internet ya API connection check karein.";
             }
         }
     </script>
