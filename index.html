@@ -5,30 +5,48 @@
     <title>Meri Free AI Website</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background: #f4f4f9; }
-        input { padding: 10px; width: 300px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; cursor: pointer; }
-        #result { margin-top: 20px; font-size: 18px; color: #333; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); }
+        input { padding: 12px; width: 70%; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 12px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #result { margin-top: 20px; font-size: 18px; color: #333; text-align: left; background: #e9ecef; padding: 15px; border-radius: 5px; min-height: 50px; }
     </style>
 </head>
 <body>
 
-    <h1>🤖 Meri AI Web Application</h1>
-    <p>Yahan apna sawal likhein:</p>
-    
-    <input type="text" id="userInput" placeholder="Kuch poochhein...">
-    <br><br>
-    <button onclick="runAI()">Jawab Hasil Karein</button>
+    <div class="container">
+        <h1>🤖 Meri Real AI Website</h1>
+        <p>Yahan apna sawal likhein aur AI se jawab hasil karein:</p>
+        
+        <input type="text" id="userInput" placeholder="Kuch poochhein (e.g. Define machine)...">
+        <br><br>
+        <button onclick="runAI()">Jawab Hasil Karein</button>
 
-    <div id="result"></div>
+        <div id="result">Aap ka jawab yahan aaye ga...</div>
+    </div>
 
     <script>
-        function runAI() {
+        async function runAI() {
             let text = document.getElementById("userInput").value;
+            let resultDiv = document.getElementById("result");
+
             if(text.trim() === "") {
                 alert("Baraye meherbani kuch likhein!");
                 return;
             }
-            document.getElementById("result").innerHTML = "<b>AI ka Jawab:</b> Aap ka sawal mil gaya ('" + text + "'). Yeh bilkul free chal rahi hai!";
+
+            resultDiv.innerHTML = "<b>AI soch raha hai...</b>";
+
+            // Yahan hum aik free public API endpoint ya JavaScript fetch logic connect kar sakte hain
+            try {
+                // Aap yahan apna text-based AI response display kar rahe hain
+                // Mazeed behtareen response ke liye hum agle step mein API key configure karenge
+                setTimeout(() => {
+                    resultDiv.innerHTML = "<b>AI ka Jawab:</b> Aap ne poocha: '<b>" + text + "</b>'. Yeh sawal bohot umdah hai! Iska jawab yeh hai ke yeh aap ki apni live AI web application par run ho raha hai.";
+                }, 1000);
+            } catch (error) {
+                resultDiv.innerHTML = "Koyi kharabi ho gayi hai, dobara koshish karein.";
+            }
         }
     </script>
 
